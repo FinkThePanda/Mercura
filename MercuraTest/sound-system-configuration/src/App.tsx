@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 
 // Eksempelproduktkatalog
 const productCatalog = [
-  { id: 1, name: 'Speaker A', quantity: 1 },
-  { id: 2, name: 'Speaker B', quantity: 2 },
-  { id: 3, name: 'System XX24', quantity: 1 },
+  { id: 1, name: 'Speaker A' },
+  { id: 2, name: 'Speaker B' },
+  { id: 3, name: 'Speaker C' },
+  { id: 4, name: 'Speaker D' },
+  { id: 5, name: 'System XX24' },
+  { id: 6, name: 'System XX20' },
+
 ];
 
 const App: React.FC = () => {
@@ -12,9 +16,28 @@ const App: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<number>(productCatalog[0].id); // Vælg første produkt som standard
 
   // Funktion til at tilføje et produkt til listen over valgte produkter
-  const addProduct = (product: { id: number; name: string; quantity: number }) => {
-    setSelectedProducts((prevProducts) => [...prevProducts, product]);
+  const addProduct = (product: { id: number; name: string }) => {
+    setSelectedProducts((prevProducts) => [...prevProducts, { ...product, quantity: 1 }]); // Tilføjer produktet med standard quantity på 1
   };
+
+  // Funktion til at fjerne et produkt fra listen
+  const removeProduct = (productId: number) => {
+    setSelectedProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
+  };
+
+  // Funktion til at opdatere antallet af et produkt
+  const updateProductQuantity = (productId: number, newQuantity: number) => {
+    setSelectedProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === productId ? { ...product, quantity: newQuantity } : product
+      )
+    );
+  };
+
+  // Filtrér produktkataloget, så kun produkter der ikke er tilføjet, vises
+  const availableProducts = productCatalog.filter(
+    (product) => !selectedProducts.some((selectedProduct) => selectedProduct.id === product.id)
+  );
 
   return (
     <div className="min-h-screen h-screen flex bg-gray-100">
@@ -25,8 +48,22 @@ const App: React.FC = () => {
         {/* Valgte Produkter */}
         <div className="mb-4">
           {selectedProducts.map((product) => (
-            <div key={product.id} className="border p-2 mb-2">
-              {product.name} <span className="text-gray-600">[x{product.quantity}]</span>
+            <div key={product.id} className="border p-2 mb-2 flex justify-between items-center">
+              <span>{product.name}</span>
+              {/* Input for at ændre mængden af produktet */}
+              <input
+                type="number"
+                min="1"
+                value={product.quantity}
+                onChange={(e) => updateProductQuantity(product.id, parseInt(e.target.value))}
+                className="w-16 border p-1 mx-2"
+              />
+              <button
+                className="text-red-500 hover:text-red-700"
+                onClick={() => removeProduct(product.id)} // Fjerner kun det produkt, der trykkes på
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>
@@ -38,7 +75,7 @@ const App: React.FC = () => {
             value={selectedProduct}
             onChange={(e) => setSelectedProduct(parseInt(e.target.value))}
           >
-            {productCatalog.map((product) => (
+            {availableProducts.map((product) => (
               <option key={product.id} value={product.id}>
                 {product.name}
               </option>
@@ -52,6 +89,7 @@ const App: React.FC = () => {
                 addProduct(productToAdd);
               }
             }}
+            disabled={availableProducts.length === 0} // Disabler knappen hvis alle produkter er tilføjet
           >
             + add product
           </button>
