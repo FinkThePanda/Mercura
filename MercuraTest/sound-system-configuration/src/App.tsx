@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Eksempelproduktkatalog
 const productCatalog = [
@@ -30,6 +30,9 @@ const App: React.FC = () => {
     phone: '',
     email: ''
   });
+
+  // Tilstand til at aktivere/deaktivere "Bestil"-knappen
+  const [canPlaceOrder, setCanPlaceOrder] = useState<boolean>(false);
 
   // Funktion til at opdatere kundeoplysninger
   const handleCustomerInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,13 +116,24 @@ const App: React.FC = () => {
   };
 
   // Beregn totalprisen hver gang der ændres i kurven
-  React.useEffect(() => {
+  useEffect(() => {
     calculateTotalPrice();
   }, [selectedProducts, delivery, installation]);
 
+  // Funktion til at tjekke, om kundeinfo er udfyldt
+  const isCustomerInfoValid = () => {
+    const { name, phone, email } = customerInfo;
+    return name.trim() !== '' && phone.trim() !== '' && email.trim() !== '';
+  };
+
+  // Tjek om "Bestil"-knappen skal aktiveres
+  useEffect(() => {
+    setCanPlaceOrder(selectedProducts.length > 0 && isCustomerInfoValid());
+  }, [selectedProducts, customerInfo]);
+
   // Funktion til at bestille produkter
   const placeOrder = () => {
-    if (selectedProducts.length > 0) {
+    if (canPlaceOrder) {
       alert("Order placed successfully!");
       // Her kan du sende data til backend eller lave en anden handling
     }
@@ -141,47 +155,6 @@ const App: React.FC = () => {
             </ul>
           </div>
         )}
-
-        {/* Valgte Produkter */}
-        <div className="mb-4">
-          {selectedProducts.map((product) => (
-            <div key={product.id} className="border p-2 mb-2 flex flex-col">
-              <div className="flex justify-between items-center">
-                <span>{product.name} - {product.price} DKK</span>
-                {/* Input for at ændre mængden af produktet */}
-                <input
-                  type="number"
-                  min="1"
-                  value={product.quantity}
-                  onChange={(e) => updateProductQuantity(product.id, parseInt(e.target.value))}
-                  className="w-12 border p-1 mx-2 text-center"
-                />
-                <button
-                  className="text-red-500 hover:text-red-700"
-                  onClick={() => removeProduct(product.id)}
-                >
-                  Remove
-                </button>
-              </div>
-
-              {/* Farvevælger for hvert produkt */}
-              <div className="mt-2">
-                <label className="block text-sm">Color:</label>
-                <select
-                  value={product.color}
-                  onChange={(e) => updateProductColor(product.id, e.target.value)}
-                  className="border p-1 w-full text-sm"
-                >
-                  {availableColors.map((color) => (
-                    <option key={color} value={color}>
-                      {color || "Select color"}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          ))}
-        </div>
 
         {/* Add Product Dropdown og Knap */}
         <div className="mb-4">
@@ -234,6 +207,47 @@ const App: React.FC = () => {
           >
             + add product
           </button>
+        </div>
+
+        {/* Valgte Produkter - Flyttet herunder */}
+        <div className="mb-4">
+          {selectedProducts.map((product) => (
+            <div key={product.id} className="border p-2 mb-2 flex flex-col">
+              <div className="flex justify-between items-center">
+                <span>{product.name} - {product.price} DKK</span>
+                {/* Input for at ændre mængden af produktet */}
+                <input
+                  type="number"
+                  min="1"
+                  value={product.quantity}
+                  onChange={(e) => updateProductQuantity(product.id, parseInt(e.target.value))}
+                  className="w-12 border p-1 mx-2 text-center"
+                />
+                <button
+                  className="text-red-500 hover:text-red-700"
+                  onClick={() => removeProduct(product.id)}
+                >
+                  Remove
+                </button>
+              </div>
+
+              {/* Farvevælger for hvert produkt */}
+              <div className="mt-2">
+                <label className="block text-sm">Color:</label>
+                <select
+                  value={product.color}
+                  onChange={(e) => updateProductColor(product.id, e.target.value)}
+                  className="border p-1 w-full text-sm"
+                >
+                  {availableColors.map((color) => (
+                    <option key={color} value={color}>
+                      {color || "Select color"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Options */}
@@ -304,9 +318,9 @@ const App: React.FC = () => {
         <div className="mt-4">
           <button
             className={`w-full p-2 text-white rounded ${
-              selectedProducts.length > 0 ? "bg-green-500 hover:bg-green-600" : "bg-gray-300"
+              canPlaceOrder ? "bg-green-500 hover:bg-green-600" : "bg-gray-300"
             }`}
-            disabled={selectedProducts.length === 0}
+            disabled={!canPlaceOrder} // Disable knap hvis ikke muligt at bestille
             onClick={placeOrder}
           >
             Bestil
