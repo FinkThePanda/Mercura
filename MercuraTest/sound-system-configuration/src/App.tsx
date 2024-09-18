@@ -1,19 +1,60 @@
-// src/App.tsx
-import React from 'react';
+import React, { useState } from 'react';
+
+// Eksempelproduktkatalog
+const productCatalog = [
+  { id: 1, name: 'Speaker A', quantity: 1 },
+  { id: 2, name: 'Speaker B', quantity: 2 },
+  { id: 3, name: 'System XX24', quantity: 1 },
+];
 
 const App: React.FC = () => {
+  const [selectedProducts, setSelectedProducts] = useState<{ id: number; name: string; quantity: number }[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<number>(productCatalog[0].id); // Vælg første produkt som standard
+
+  // Funktion til at tilføje et produkt til listen over valgte produkter
+  const addProduct = (product: { id: number; name: string; quantity: number }) => {
+    setSelectedProducts((prevProducts) => [...prevProducts, product]);
+  };
+
   return (
-    <div className="h-screen flex bg-gray-100">
+    <div className="min-h-screen h-screen flex bg-gray-100">
       {/* Sidebar */}
       <div className="w-1/3 bg-white p-4 shadow-lg h-full">
         <h2 className="text-xl font-bold mb-4">Products</h2>
-        
-        {/* Product List */}
+
+        {/* Valgte Produkter */}
         <div className="mb-4">
-          <div className="border p-2 mb-2">Speaker A <span className="text-gray-600">[x1]</span></div>
-          <div className="border p-2 mb-2">Speaker B <span className="text-gray-600">[x2]</span></div>
-          <div className="border p-2">System XX24 <span className="text-gray-600">[x1]</span></div>
-          <button className="mt-2 text-blue-600 hover:underline">+ add products</button>
+          {selectedProducts.map((product) => (
+            <div key={product.id} className="border p-2 mb-2">
+              {product.name} <span className="text-gray-600">[x{product.quantity}]</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Add Product Dropdown og Knap */}
+        <div className="mb-4">
+          <select
+            className="border p-2 mb-2 w-full"
+            value={selectedProduct}
+            onChange={(e) => setSelectedProduct(parseInt(e.target.value))}
+          >
+            {productCatalog.map((product) => (
+              <option key={product.id} value={product.id}>
+                {product.name}
+              </option>
+            ))}
+          </select>
+          <button
+            className="mt-2 text-blue-600 hover:underline"
+            onClick={() => {
+              const productToAdd = productCatalog.find((p) => p.id === selectedProduct);
+              if (productToAdd) {
+                addProduct(productToAdd);
+              }
+            }}
+          >
+            + add product
+          </button>
         </div>
 
         {/* Options */}
