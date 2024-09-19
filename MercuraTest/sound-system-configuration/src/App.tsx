@@ -3,12 +3,11 @@ import SlideDeck from './components/SlideDeck'; // Importer SlideDeck-komponente
 
 // Eksempelproduktkatalog
 const productCatalog = [
-  { id: 1, name: 'Roam 2', price: 1200, imageUrl: 'public/images/Roam-2.png' },
-  { id: 2, name: 'Era 100', price: 1500, imageUrl: 'public/images/Era-100.png' },
-  { id: 3, name: 'Era 300', price: 1000, imageUrl: 'public/images/Era-300.png' },
-  { id: 4, name: 'Five', price: 2000, imageUrl: 'public/images/Five.png' },
-  { id: 5, name: 'Move 2', price: 4000, imageUrl: 'public/images/Move-2.png' },
-  { id: 6, name: 'Roam SL', price: 3500, imageUrl: 'public/images/Roam-SL.png' },
+  { id: 1, name: 'Roam 2', price: 1499, colorImages: { black: 'public/images/Roam-2-black.webp', white: 'public/images/Roam-2-white.webp' }},
+  { id: 2, name: 'Era 100', price: 1679, colorImages: { black: 'public/images/Era-100-black.webp', white: 'public/images/Era-100-white.webp' } },
+  { id: 3, name: 'Era 300', price: 3699, colorImages: { black: 'public/images/Era-300-black.webp', white: 'public/images/Era-300-white.webp' } },
+  { id: 4, name: 'Five', price: 4899, colorImages: { black: 'public/images/Five-black.webp', white: 'public/images/Five-white.webp' } },
+  { id: 5, name: 'Move 2', price: 3699, colorImages: { black: 'public/images/Move-2-black.webp', white: 'public/images/Move-2-white.webp' } },
 ];
 
 // Farvevalg
@@ -157,7 +156,7 @@ const App: React.FC = () => {
     <div className="min-h-screen h-screen flex bg-gray-100">
       {/* Sidebar */}
       <div className="w-1/3 bg-white p-4 shadow-lg h-full overflow-y-scroll">
-        <h2 className="text-xl font-bold mb-4">Cool Sound Systems</h2>
+        <h2 className="text-xl font-bold mb-4">Sonos Sound Systems</h2>
 
         {/* Valideringsfejl */}
         {errors.length > 0 && (
