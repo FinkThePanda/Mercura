@@ -1,3 +1,8 @@
+/*
+This is used for creating a 3D model of the speaker to show on the website
+
+
+
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -63,3 +68,4 @@ const Model: React.FC = () => {
 };
 
 export default Model;
+*/

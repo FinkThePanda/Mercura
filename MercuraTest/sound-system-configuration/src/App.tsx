@@ -155,8 +155,8 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen h-screen flex bg-gray-100">
       {/* Sidebar */}
-      <div className="w-1/3 bg-white p-4 shadow-lg h-full overflow-y-scroll">
-        <h2 className="text-xl font-bold mb-4">Sonos Sound Systems</h2>
+      <div className="w-1/3 bg-[#2E2E2E] p-4 shadow-lg h-full overflow-y-scroll">
+        <h2 className="text-xl font-bold mb-4 text-[#D3D3D3]">Sonos Sound Systems</h2>
 
         {/* Valideringsfejl */}
         {errors.length > 0 && (
@@ -164,7 +164,7 @@ const App: React.FC = () => {
             <ul>
               {errors.map((error, index) => (
                 <li key={index}>{error}</li>
-              ))}
+              ))} 
             </ul>
           </div>
         )}
@@ -172,15 +172,15 @@ const App: React.FC = () => {
         {/* Add Product Dropdown og Knap */}
         <div className="mb-4">
           <select
-            className="border p-2 mb-2 w-full"
+            className="border p-2 mb-2 w-full bg-[#2E2E2E] text-[#D3D3D3]"
             value={selectedProduct ?? ""}
             onChange={(e) => setSelectedProduct(parseInt(e.target.value))}
           >
-            <option value="" disabled>
+            <option value="" disabled className="text-[#D3D3D3]">
               Select a product
             </option>
             {availableProducts.map((product) => (
-              <option key={product.id} value={product.id}>
+              <option key={product.id} value={product.id} className="text-[#D3D3D3]">
                 {product.name}
               </option>
             ))}
@@ -188,11 +188,11 @@ const App: React.FC = () => {
 
           {/* Farvevælger før tilføjelse */}
           <div className="mb-2">
-            <label className="block">Choose Color:</label>
+            <label className="block text-[#D3D3D3]">Choose Color:</label>
             <select
               value={selectedColor}
               onChange={(e) => setSelectedColor(e.target.value)}
-              className="border p-2 w-full"
+              className="border p-2 w-full bg-[#2E2E2E] text-[#D3D3D3]"
             >
               {availableColors.map((color) => (
                 <option key={color} value={color}>
@@ -204,18 +204,18 @@ const App: React.FC = () => {
 
           {/* Antal */}
           <div className="mb-2">
-            <label className="block">Quantity:</label>
+            <label className="block text-[#D3D3D3]">Quantity:</label>
             <input
               type="number"
               min="1"
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value))}
-              className="border p-2 w-full text-center"
+              className="border p-2 w-full text-center bg-[#2E2E2E] text-[#D3D3D3]"
             />
           </div>
 
           <button
-            className="mt-2 text-blue-600 hover:underline"
+            className="mt-2 text-[#3498DB] hover:text-[#1ABC9C]"
             onClick={addProduct}
           >
             + add product
@@ -227,14 +227,13 @@ const App: React.FC = () => {
           {selectedProducts.map((product) => (
             <div key={product.id} className="border p-2 mb-2 flex flex-col">
               <div className="flex justify-between items-center">
-                <span>{product.name} - {product.price} DKK</span>
-                {/* Input for at ændre mængden af produktet */}
+                <span className="text-[#D3D3D3]">{product.name} - {product.price} DKK</span>
                 <input
                   type="number"
                   min="1"
                   value={product.quantity}
                   onChange={(e) => updateProductQuantity(product.id, parseInt(e.target.value))}
-                  className="w-12 border p-1 mx-2 text-center"
+                  className="w-12 border p-1 mx-2 text-center bg-[#2E2E2E] text-[#D3D3D3]"
                 />
                 <button
                   className="text-red-500 hover:text-red-700"
@@ -246,11 +245,11 @@ const App: React.FC = () => {
 
               {/* Farvevælger for hvert produkt */}
               <div className="mt-2">
-                <label className="block text-sm">Color:</label>
+                <label className="block text-sm text-[#D3D3D3]">Color:</label>
                 <select
                   value={product.color}
                   onChange={(e) => updateProductColor(product.id, e.target.value)}
-                  className="border p-1 w-full text-sm"
+                  className="border p-1 w-full text-sm bg-[#2E2E2E] text-[#D3D3D3]"
                 >
                   {availableColors.map((color) => (
                     <option key={color} value={color}>
@@ -265,7 +264,7 @@ const App: React.FC = () => {
 
         {/* Options */}
         <div className="mb-4">
-          <label className="flex items-center mb-2">
+          <label className="flex items-center mb-2 text-[#D3D3D3]">
             <input
               type="checkbox"
               className="mr-2"
@@ -274,7 +273,7 @@ const App: React.FC = () => {
             />
             Delivery <span className="ml-auto">+ 150 dkk</span>
           </label>
-          <label className="flex items-center">
+          <label className="flex items-center text-[#D3D3D3]">
             <input
               type="checkbox"
               className="mr-2"
@@ -288,45 +287,45 @@ const App: React.FC = () => {
         {/* Price and Info */}
         <div className="mt-4">
           <div className="border-t pt-2">
-            <h3 className="font-bold">Price Breakdown:</h3>
-            <p>Products: {productsTotal} DKK</p>
-            <p>Tax: {tax.toFixed(2)} DKK</p>
-            <p>Delivery: {deliveryPrice} DKK</p>
-            <p>Installation: {installationPrice} DKK</p>
-            <p className="font-bold mt-2">Total: {totalPrice} DKK</p>
+            <h3 className="font-bold text-[#D3D3D3]">Price Breakdown:</h3>
+            <p className="text-[#D3D3D3]">Products: {productsTotal} DKK</p>
+            <p className="text-[#D3D3D3]">Tax: {tax.toFixed(2)} DKK</p>
+            <p className="text-[#D3D3D3]">Delivery: {deliveryPrice} DKK</p>
+            <p className="text-[#D3D3D3]">Installation: {installationPrice} DKK</p>
+            <p className="font-bold mt-2 text-[#D3D3D3]">Total: {totalPrice} DKK</p>
           </div>
 
           {/* Customer Info Form */}
           <div className="mt-4">
-            <h3 className="font-bold mb-2">Customer Info</h3>
+            <h3 className="font-bold mb-2 text-[#D3D3D3]">Customer Info</h3>
             <div className="mb-2">
-              <label className="block mb-1">Name:</label>
+              <label className="block mb-1 text-[#D3D3D3]">Name:</label>
               <input
                 type="text"
                 name="name"
                 value={customerInfo.name}
                 onChange={handleCustomerInfoChange}
-                className="border p-2 w-full"
+                className="border p-2 w-full bg-[#2E2E2E] text-[#D3D3D3]"
               />
             </div>
             <div className="mb-2">
-              <label className="block mb-1">Phone:</label>
+              <label className="block mb-1 text-[#D3D3D3]">Phone:</label>
               <input
                 type="tel"
                 name="phone"
                 value={customerInfo.phone}
                 onChange={handleCustomerInfoChange}
-                className="border p-2 w-full"
+                className="border p-2 w-full bg-[#2E2E2E] text-[#D3D3D3]"
               />
             </div>
             <div className="mb-4">
-              <label className="block mb-1">Email:</label>
+              <label className="block mb-1 text-[#D3D3D3]">Email:</label>
               <input
                 type="email"
                 name="email"
                 value={customerInfo.email}
                 onChange={handleCustomerInfoChange}
-                className="border p-2 w-full"
+                className="border p-2 w-full bg-[#2E2E2E] text-[#D3D3D3]"
               />
             </div>
           </div>
@@ -336,7 +335,7 @@ const App: React.FC = () => {
         <div className="mt-4">
           <button
             className={`w-full p-2 text-white rounded ${
-              canPlaceOrder ? "bg-green-500 hover:bg-green-600" : "bg-gray-300"
+              canPlaceOrder ? "bg-[#1ABC9C] hover:bg-[#3498DB]" : "bg-gray-300"
             }`}
             disabled={!canPlaceOrder} // Disable knap hvis ikke muligt at bestille
             onClick={placeOrder}
@@ -347,10 +346,15 @@ const App: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8 h-full">
+      <div className="flex-1 p-8 h-full max-h-screen overflow-auto">
         {/* SlideDeck visning */}
-        <div className="w-full h-full">
-          <SlideDeck productCatalog={productCatalog} />
+        <div className="w-full h-full flex flex-col justify-start items-center">
+          <h2 className="text-2xl font-bold mb-4">Product Gallery</h2> {/* Product Heading */}
+          <div className="w-full flex justify-center items-center flex-col">
+            <div className="w-full max-w-xl h-auto">
+              <SlideDeck productCatalog={productCatalog} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -358,4 +362,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
