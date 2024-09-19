@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import SlideDeck from './components/SlideDeck'; // Importer SlideDeck-komponenten
 
 // Eksempelproduktkatalog
 const productCatalog = [
-  { id: 1, name: 'Speaker A', price: 1200 },
-  { id: 2, name: 'Speaker B', price: 1500 },
-  { id: 3, name: 'Speaker C', price: 1000 },
-  { id: 4, name: 'Speaker D', price: 2000 },
-  { id: 5, name: 'System XX24', price: 4000 },
-  { id: 6, name: 'System XX20', price: 3500 },
+  { id: 1, name: 'Roam 2', price: 1200, imageUrl: 'public/images/Roam-2.png' },
+  { id: 2, name: 'Era 100', price: 1500, imageUrl: 'public/images/Era-100.png' },
+  { id: 3, name: 'Era 300', price: 1000, imageUrl: 'public/images/Era-300.png' },
+  { id: 4, name: 'Five', price: 2000, imageUrl: 'public/images/Five.png' },
+  { id: 5, name: 'Move 2', price: 4000, imageUrl: 'public/images/Move-2.png' },
+  { id: 6, name: 'Roam SL', price: 3500, imageUrl: 'public/images/Roam-SL.png' },
 ];
 
 // Farvevalg
-const availableColors = ["", "Red", "Blue", "Green", "Black", "White"]; // Include an empty string for no selection
+const availableColors = ["", "Black", "White"]; // Include an empty string for no selection
 
 const TAX_RATE = 0.25; // 25% moms
 
@@ -348,16 +349,9 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <div className="flex-1 p-8 h-full">
-        <h1 className="text-3xl font-bold mb-6">Speaker A</h1>
-
-        {/* Product Display */}
-        <div className="grid grid-cols-2 gap-8">
-          <div className="bg-gray-300 p-4 text-center">
-            <p>Speaker A Image</p>
-          </div>
-          <div className="bg-gray-300 p-4 text-center">
-            <p>2x Speaker B Image</p>
-          </div>
+        {/* SlideDeck visning */}
+        <div className="w-full h-full">
+          <SlideDeck productCatalog={productCatalog} />
         </div>
       </div>
     </div>
@@ -365,3 +359,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+
