@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# Sound System Configuration - CPQ Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dette projekt er en webapplikation til konfiguration af lydsystemer som en del af en CPQ (Configure, Price, Quote) løsning. Webapplikationen giver brugerne mulighed for at vælge mellem forskellige lydprodukter, farver og tilpasningsmuligheder. Projektet er bygget med React, Vite, TypeScript og Tailwind CSS.
 
-Currently, two official plugins are available:
+## Teknologi Stack
+- **React**: JavaScript bibliotek til brugergrænseflader
+- **Vite**: Hurtigt bygge- og udviklingsværktøj
+- **TypeScript**: Supersæt af JavaScript med statisk typechecking
+- **Tailwind CSS**: CSS framework for hurtig styling
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
 
-## Expanding the ESLint configuration
+Følg disse trin for at installere og køre projektet lokalt:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Klon repository:
+   git clone https://github.com/din-bruger/repository-navn.git
 
-- Configure the top-level `parserOptions` property like this:
+2. Naviger til projektmappen:
+    cd sound-system-configuration
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+3. Installer projektets afhængigheder ved hjælp af npm: 
+    npm install
+    
+4. Start udviklingsserveren:
+    npm run dev
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+5. Åbn din browser og naviger til:
+    http://localhost:5173
+    Projektet vil nu køre på din lokale maskine, og du kan se det i din browser på den angivne URL.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Kørsel af projektet
+For at køre projektet lokalt skal du følge disse trin:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Sørg for at have Node.js installeret.
+2. Kør npm install for at installere afhængighederne.
+3. Start udviklingsserveren med npm run dev.
+4. Naviger til http://localhost:3000 i din browser for at se applikationen.
+Hvis du vil opbygge projektet til produktion, kan du køre:
+  npm run build
+Dette vil generere en dist mappe med en optimeret version af applikationen, som kan implementeres.
+
+## Projektstruktur
+├── public/              # Offentlige ressourcer som billeder
+├── src/
+│   ├── assets/          # Billeder og andre mediefiler
+│   ├── components/      # Genanvendelige React-komponenter
+│   ├── data/            # Projektdata (produktkatalog, farvevalg)
+│   ├── App.tsx          # Hovedapplikationen
+│   ├── index.tsx        # Indgangspunkt for applikationen
+│   └── ...
+├── package.json         # Projektets afhængigheder og scripts
+├── vite.config.ts       # Vite-konfiguration
+└── README.md            # Denne fil
+
+## Funktioner
+* Konfiguration af lydsystemer
+* Vælg farver og tilpasningsmuligheder
+* Responsivt design ved hjælp af Tailwind CSS
+
+## Bidrag
+Hvis du ønsker at bidrage til dette projekt, kan du følge disse trin:
+
+1. Fork repository
+2. Opret en ny branch (git checkout -b feature/dit-feature-navn)
+3. Lav dine ændringer og commit dem (git commit -am 'Tilføj dit feature')
+4. Push til din branch (git push origin feature/dit-feature-navn)
+5. Opret en Pull Request
