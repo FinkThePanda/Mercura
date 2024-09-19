@@ -13,6 +13,8 @@ const productCatalog = [
 // Farvevalg
 const availableColors = ["", "Red", "Blue", "Green", "Black", "White"]; // Include an empty string for no selection
 
+const TAX_RATE = 0.25; // 25% moms
+
 const App: React.FC = () => {
   const [selectedProducts, setSelectedProducts] = useState<{ id: number; name: string; quantity: number; color: string; price: number }[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<number | null>(null); // Start with no product selected
@@ -21,7 +23,11 @@ const App: React.FC = () => {
 
   const [delivery, setDelivery] = useState<boolean>(false); // Delivery option
   const [installation, setInstallation] = useState<boolean>(false); // Installation option
-  const [totalPrice, setTotalPrice] = useState<number>(0); // Total price
+  const [productsTotal, setProductsTotal] = useState<number>(0); // Total price for products
+  const [tax, setTax] = useState<number>(0); // Tax amount
+  const [deliveryPrice, setDeliveryPrice] = useState<number>(0); // Delivery price
+  const [installationPrice, setInstallationPrice] = useState<number>(0); // Installation price
+  const [totalPrice, setTotalPrice] = useState<number>(0); // Grand total price
   const [errors, setErrors] = useState<string[]>([]); // Holds validation errors
 
   // Tilstand til at gemme kundeoplysninger
@@ -104,20 +110,27 @@ const App: React.FC = () => {
     (product) => !selectedProducts.some((selectedProduct) => selectedProduct.id === product.id)
   );
 
-  // Funktion til at beregne totalprisen
-  const calculateTotalPrice = () => {
+  // Funktion til at beregne priskomponenterne og den samlede pris
+  const calculatePrices = () => {
     const productsPrice = selectedProducts.reduce(
       (acc, product) => acc + product.price * product.quantity,
       0
     );
+    const taxAmount = productsPrice * TAX_RATE;
     const deliveryPrice = delivery ? 150 : 0;
     const installationPrice = installation ? 500 : 0;
-    setTotalPrice(productsPrice + deliveryPrice + installationPrice);
+    const grandTotal = productsPrice + taxAmount + deliveryPrice + installationPrice;
+
+    setProductsTotal(productsPrice);
+    setTax(taxAmount);
+    setDeliveryPrice(deliveryPrice);
+    setInstallationPrice(installationPrice);
+    setTotalPrice(grandTotal);
   };
 
-  // Beregn totalprisen hver gang der ændres i kurven
+  // Beregn priser hver gang der ændres i kurven
   useEffect(() => {
-    calculateTotalPrice();
+    calculatePrices();
   }, [selectedProducts, delivery, installation]);
 
   // Funktion til at tjekke, om kundeinfo er udfyldt
@@ -209,7 +222,7 @@ const App: React.FC = () => {
           </button>
         </div>
 
-        {/* Valgte Produkter - Flyttet herunder */}
+        {/* Valgte Produkter */}
         <div className="mb-4">
           {selectedProducts.map((product) => (
             <div key={product.id} className="border p-2 mb-2 flex flex-col">
@@ -275,7 +288,12 @@ const App: React.FC = () => {
         {/* Price and Info */}
         <div className="mt-4">
           <div className="border-t pt-2">
-            <p>Price: {totalPrice} DKK</p>
+            <h3 className="font-bold">Price Breakdown:</h3>
+            <p>Products: {productsTotal} DKK</p>
+            <p>Tax: {tax.toFixed(2)} DKK</p>
+            <p>Delivery: {deliveryPrice} DKK</p>
+            <p>Installation: {installationPrice} DKK</p>
+            <p className="font-bold mt-2">Total: {totalPrice} DKK</p>
           </div>
 
           {/* Customer Info Form */}
