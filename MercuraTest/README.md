@@ -52,7 +52,7 @@ Dette vil generere en dist mappe med en optimeret version af applikationen, som 
 ├── package.json         # Projektets afhængigheder og scripts
 ├── vite.config.ts       # Vite-konfiguration
 └── README.md            # Denne fil
-
+'''bash
 
 ## Funktioner
 * Konfiguration af lydsystemer
