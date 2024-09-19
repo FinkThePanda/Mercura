@@ -40,6 +40,7 @@ Hvis du vil opbygge projektet til produktion, kan du køre:
 Dette vil generere en dist mappe med en optimeret version af applikationen, som kan implementeres.
 
 ## Projektstruktur
+```bash
 ├── public/              # Offentlige ressourcer som billeder
 ├── src/
 │   ├── assets/          # Billeder og andre mediefiler
@@ -51,6 +52,7 @@ Dette vil generere en dist mappe med en optimeret version af applikationen, som 
 ├── package.json         # Projektets afhængigheder og scripts
 ├── vite.config.ts       # Vite-konfiguration
 └── README.md            # Denne fil
+
 
 ## Funktioner
 * Konfiguration af lydsystemer
