@@ -341,7 +341,7 @@ const App: React.FC = () => {
       <div className="flex-1 p-8 h-full max-h-screen overflow-auto">
         {/* SlideDeck visning */}
         <div className="w-full h-full flex flex-col justify-start items-center">
-          <h2 className="text-2xl font-bold mb-4">Product Gallery</h2> {/* Product Heading */}
+          <h2 className="text-2xl font-bold mb-4"style={{ color: 'black' }}>Product Gallery</h2> {/* Product Heading */}
           <div className="w-full flex justify-center items-center flex-col">
             <div className="w-full max-w-xl h-auto">
               <SlideDeck productCatalog={productCatalog} />

@@ -26,7 +26,7 @@ const SlideDeck: React.FC<{ productCatalog: { id: number; name: string; colorIma
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden">
       {/* Overskrift til produktnavn */}
-      <h2 className="text-2xl font-bold mb-4">{currentProduct.name}</h2> {/* Dynamisk overskrift */}
+      <h2 className="text-2xl font-bold mb-4" style={{ color: 'black' }}>{currentProduct.name}</h2> {/* Dynamisk overskrift */}
 
       {/* Farvevælger */}
       <div className="absolute top-0 right-0 mt-2 mr-2 flex space-x-2">
