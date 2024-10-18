@@ -2,6 +2,9 @@
 
 Dette projekt er en webapplikation til konfiguration af lydsystemer som en del af en CPQ (Configure, Price, Quote) løsning. Webapplikationen giver brugerne mulighed for at vælge mellem forskellige lydprodukter, farver og tilpasningsmuligheder. Projektet er bygget med React, Vite, TypeScript og Tailwind CSS.
 
+Det skal nævnes at dette projekt er første gang jeg gøre brug af teknologier til at udvikle front-end software.
+Det meste af koden skrevet er implementeret direkte i min app.tsx, da jeg løb ind i mange problemer med og gøre brug af components.
+
 ## Teknologi Stack
 - **React**: JavaScript bibliotek til brugergrænseflader
 - **Vite**: Hurtigt bygge- og udviklingsværktøj
